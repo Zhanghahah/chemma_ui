@@ -1,0 +1,14 @@
+cookie:
+  expiry_days: 0
+  key: some_signature_key
+  name: some_cookie_name
+credentials:
+  usernames:
+    jsmith:
+      logged_in: false
+      name: jsmith
+      password: abc
+    rbriggs:
+      logged_in: false
+      name: rbriggs
+      password: def

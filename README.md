@@ -1,2 +1,2 @@
-# chemma_ui
-front-end demo for chemma
+# run:
+streamlit run ChemmaUI.py --server.fileWatcherType none 
