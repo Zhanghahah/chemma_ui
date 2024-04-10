@@ -7,6 +7,7 @@ from openai import OpenAI
 check_login()
 set_sidebar()
 
+st.text('This is some text.')
 st.subheader(f'Chat With Chemma',divider='rainbow')
 
 # st.text("main content")

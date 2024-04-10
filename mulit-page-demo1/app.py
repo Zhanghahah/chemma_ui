@@ -31,7 +31,7 @@ authenticator = stauth.Authenticate(
 col1, col2, col3 = st.columns(3)
 
 with col2:
-    st.image("static/IMG_8209.PNG")
+    st.image("static/chemma_logo.png")
     authenticator.login()
 
 to_menu()
