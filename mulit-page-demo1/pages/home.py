@@ -1,5 +1,5 @@
-import sys
-sys.path.append("../")
+# import sys
+# sys.path.append("../")
 import streamlit as st
 from menu import *
 import random
@@ -79,6 +79,7 @@ def response_generator(prompt):
             stop=["<|endoftext|>"],
             prompt=f"Human:{prompt} Assistant:"
                    )
+def chat_ui():
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
