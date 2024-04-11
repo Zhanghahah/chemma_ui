@@ -18,7 +18,7 @@ def disable_input():
 def enable_input():
     st.session_state["disabled"] = False
 
-def response_generator():
+def response_generator(prompt):
     response = random.choice(
         [
             "Hello there! How can I assist you today?",
@@ -28,15 +28,20 @@ def response_generator():
     )
 
     client = OpenAI(base_url="http://202.120.39.36:8800/v1", api_key="not used actually")
-
+    # input test case:
+    print("++++++++++++++++++++++++++++++++++++")
+    print(prompt)
     response = client.completions.create(
         model="11-07-output_step1_llama2_7b",
         max_tokens=200,
         temperature=1.5,
         stop=["<|endoftext|>"],
-        prompt="Human: Considering a chemical reaction, SMILES is sequenced-based strings, used to encode the molecular structure, reactants for this reaction are Brc1ccc(-c2ccccc2)cc1.CC1(C)OB(C2CCCCN2OCc2ccccc2)OC1(C)C, SMILES for products of reactions are c1ccc(-c2ccc(C3CCCCN3)cc2)cc1, so the whole reaction can be represented as Brc1ccc(-c2ccccc2)cc1.CC1(C)OB(C2CCCCN2OCc2ccccc2)OC1(C)C>C1COCCO1>CC(C)(C)C1=CC=CC(C(C)(C)C)=C1C2=C(P(C3=CC(C(F)(F)F)=CC(C(F)(F)F)=C3)C4=CC(C(F)(F)F)=CC(C(F)(F)F)=C4)C(OC)=CC=C2OC>c1ccc(-c2ccc(C3CCCCN3)cc2)cc1, Based on your knowledge, what reagents or catalysts are likely to be found in this chemical reaction? Assistant:"
-    )
-    print(response)
+        prompt=f"Human:{prompt} Assistant:"
+               )
+
+    #print(response['choices'][0]['text'])
+    print("++++++++++++++++++++++++++++++++++++")
+    print(response[1][1]['text'])
 
 
     #处理逻辑。。。。。。。。
@@ -73,7 +78,7 @@ def chat_ui():
         # Display assistant response in chat message container
         with st.spinner('thinking'):
             with st.chat_message("assistant"):
-                response = st.write_stream(response_generator())
+                response = st.write_stream(response_generator(prompt))
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "assistant", "content": response})
         enable_input()
