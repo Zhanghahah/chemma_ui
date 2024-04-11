@@ -20,7 +20,7 @@ def set_sidebar():
     # st.sidebar.page_link("pages/func2.py", label="func2",icon="2️⃣")
     # st.sidebar.page_link("pages/func3.py", label="中文字体123",icon="3️⃣")
     st.sidebar.divider()
-    st.sidebar.page_link("pages/logout.py", label="退出登录",icon="⏏️")
+    st.sidebar.page_link("pages/logout.py", label="Logout",icon="⏏️")
     
 
 
