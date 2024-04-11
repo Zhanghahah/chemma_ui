@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 import streamlit as st
 from menu import *
 import random
@@ -54,43 +56,29 @@ def enable_input():
     st.session_state["disabled"] = False
 
 def response_generator(prompt):
-    response = random.choice(
+    final_answer = ""
+    dummy_response = random.choice(
         [
             "Hello there! How can I assist you today?",
             "Hi, human! Is there anything I can help you with?",
             "Do you need help?",
         ]
     )
+    if prompt in ['hi', 'hello', 'hello']:
+        final_answer = dummy_response
+    else:
 
-    client = OpenAI(base_url="http://202.120.39.36:8800/v1", api_key="not used actually")
-    # input test case:
-    print("++++++++++++++++++++++++++++++++++++")
-    print(prompt)
-    response = client.completions.create(
-        model="11-07-output_step1_llama2_7b",
-        max_tokens=200,
-        temperature=1.5,
-        stop=["<|endoftext|>"],
-        prompt=f"Human:{prompt} Assistant:"
-               )
-
-    #print(response['choices'][0]['text'])
-    print("++++++++++++++++++++++++++++++++++++")
-    print(response[1][1]['text'])
-
-
-    #处理逻辑。。。。。。。。
-
-
-    for word in response:
-        time.sleep(0.05)
-        yield word
-    # time.sleep(5)
-    # return response
-
-
-
-def chat_ui():
+        client = OpenAI(base_url="http://202.120.39.36:8800/v1", api_key="not used actually")
+        # input test case:
+        print("++++++++++++++++++++++++++++++++++++")
+        print(prompt)
+        response = client.completions.create(
+            model="11-07-output_step1_llama2_7b",
+            max_tokens=200,
+            temperature=1.5,
+            stop=["<|endoftext|>"],
+            prompt=f"Human:{prompt} Assistant:"
+                   )
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
