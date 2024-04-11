@@ -7,6 +7,42 @@ from openai import OpenAI
 check_login()
 set_sidebar()
 
+with st.expander("Instruction handbook"):
+
+    tab0, tab1, tab2, tab3 = st.tabs(["Instruction handbook", "Condition generation", "Retrosynthesis", "Forward prediction"])
+    with tab0:
+        st.markdown("""Chemma is capable of human-AI interactions for primary tasks in chemistry, including retrosynthesis, reaction performance prediction (yield prediction &
+        selectivity prediction), condition generation, and reaction exploration & optimization. Here, we give examples of prompts for each task. Please follow the
+        prompts format, and replace contents marked by colors with the SMILES of your molecules. For example, if you are conducting a condition generation task, you
+        need to prepare the SMILES of reactants, products, and other conditions. The more information about this reaction you give, the more useful answers Chemma
+        will generate.""")
+
+        st.image("static/ui-reaction.png")
+
+    with tab1:
+        st.markdown("""Considering a chemical reaction, SMILES is sequenced-based string used to encode the molecular structure. A chemical reaction includes reactants,
+        conditions and products. Thus, reactants for this reaction are  :blue[*FC(F)(F)c1ccc(Cl)cc1.Cc1ccc(N)cc1*], SMILES for products of reactions are
+          :blue[*Cc1ccc(Nc2ccc(C(F)(F)F)cc2)cc1*], then the reaction can be described as  :blue[*FC(F)(F)c1ccc(Cl)cc1.Cc1ccc(N)cc1>>Cc1ccc(Nc2ccc(C(F)(F)F)cc2)cc1*], base for this
+        reaction is :blue[*CCN=P(N=P(N(C)C)(N(C)C)N(C)C)(N(C)C)N(C)C*], product yield for this reaction is 10.65, Could you oer any recommendations for catalysts or
+        ligands that could have been used in this specic chemical reaction?""")
+
+    with tab2:
+        st.markdown("""Considering a chemical reaction, SMILES is sequenced-based string used to encode the molecular structure. A chemical reaction includes reactants,
+        conditions and products. SMILES for products of reactions are :blue[*Cc1ccc(Nc2ccc(C(F)(F)F)cc2)cc1*], Can you provide which reactants would lead to this resulting
+        product?""")
+
+    with tab3:
+        st.markdown("""Considering a chemical reaction, SMILES is sequenced-based string used to encode the molecular structure. A chemical reaction includes reactants,
+        conditions and products. Thus, reactants for this reaction are :blue[*FC(F)(F)c1ccc(Br)cc1.Cc1ccc(N)cc1*], What could be a potential product based on the interaction
+        of these reactants?""")
+
+
+
+                
+
+    
+    
+
 st.subheader(f'Chat With Chemma',divider='rainbow')
 
 # st.text("main content")

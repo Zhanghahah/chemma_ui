@@ -11,7 +11,7 @@ def to_login():
 def set_sidebar():
     print("===========set_sidebar============")
     #TODO角色和功能控制
-    st.sidebar.image("static/IMG_8209.PNG")
+    st.sidebar.image("static/chemma_logo.png")
     st.sidebar.caption(f'Welcome :blue[*{st.session_state["name"]}*]!')
     # st.sidebar.header("_Category1_")
     st.sidebar.page_link("pages/home.py", label="dashboard",icon="🏠")
@@ -20,7 +20,7 @@ def set_sidebar():
     # st.sidebar.page_link("pages/func2.py", label="func2",icon="2️⃣")
     # st.sidebar.page_link("pages/func3.py", label="中文字体123",icon="3️⃣")
     st.sidebar.divider()
-    st.sidebar.page_link("pages/logout.py", label="退出登录",icon="⏏️")
+    st.sidebar.page_link("pages/logout.py", label="Logout",icon="⏏️")
     
 
 
