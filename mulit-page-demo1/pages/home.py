@@ -39,18 +39,18 @@ with st.expander("Instruction handbook"):
         of these reactants?""")
 
 
-
-                
-
-    
-    
-
 st.subheader(f'Chat With Chemma',divider='rainbow')
-
-# st.text("main content")
 
 def disable_input():
     st.session_state["disabled"] = True
+
+def disable_button():
+    re_question = None
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            re_question = message["content"]
+    if re_question is not None:
+        disable_input()
 
 def enable_input():
     st.session_state["disabled"] = False
@@ -86,26 +86,33 @@ def chat_ui():
     if 'disabled' not in st.session_state:
         st.session_state['disabled'] = False
     # Display chat messages from history on app rerun
+    last_question = None
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
+        if message["role"] == "user":
+            last_question = message["content"]
 
+    disabled = st.session_state['disabled'] or not st.session_state["authentication_status"]
+    regen = st.button('ReGenerate', disabled=disabled, on_click=disable_button)
     # Accept user input
-    prompt = st.chat_input("Input your question", key='user_input', disabled=st.session_state['disabled'] or not st.session_state["authentication_status"], on_submit=disable_input)
-    
-    if prompt:
-        st.session_state.messages.append({"role": "user", "content": prompt})
+    question = st.chat_input("Input your question", key='user_input', disabled=disabled, on_submit=disable_input)
+
+    if regen and last_question is not None:
+        question = last_question
+
+    if question:
+        st.session_state.messages.append({"role": "user", "content": question})
         # Display user message in chat message container
         with st.chat_message("user"):
-            st.markdown(prompt)
-
+            st.markdown(question)
         # Display assistant response in chat message container
         with st.spinner('thinking'):
             with st.chat_message("assistant"):
-                response = st.write_stream(response_generator(prompt))
+                response = st.write_stream(response_generator(question))
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "assistant", "content": response})
         enable_input()
         st.rerun()
+
 chat_ui()
-print("1")
